@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Loading from './Loading'
 import Tours from './Tours'
-// ATTENTION!!!!!!!!!!
-// I SWITCHED TO PERMANENT DOMAIN
+import axios from 'axios'
+import AppContext from './AppContext'
 const url = 'https://course-api.com/react-tours-project'
 
 function App() {
@@ -14,18 +14,32 @@ function App() {
     setTours(newTours)
   }
 
-  const fetchTours = async () => {
+ const fetchTours = async () => axios.get(url).then(
+  (response) => {
+      var tours = response.data;
+      setLoading(false)
+      setTours(tours)
+      console.log(tours);
+  },
+  (error) => {
+    setLoading(false)
+      console.log(error);
+  }
+); 
+
+ {/*  const fetchTours = async () => {
     setLoading(true)
     try {
       const response = await fetch(url)
       const tours = await response.json()
       setLoading(false)
       setTours(tours)
+      console.log(tours);
     } catch (error) {
       setLoading(false)
       console.log(error)
     }
-  }
+  } */}
   useEffect(() => {
     fetchTours()
   }, [])
@@ -49,9 +63,11 @@ function App() {
     )
   }
   return (
+    
     <main>
       <Tours tours={tours} removeTour={removeTour} />
     </main>
+    
   )
 }
 
