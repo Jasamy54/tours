@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
+import { useGlobalContext } from './AppContext';
 
 const Tour = ({ id, image, info, name, price, removeTour }) => {
-  const [readMore, setReadMore] = useState(false);
+  //const [readMore, setReadMore] = useState(false);
+  const {readMore, setReadMore}= useGlobalContext();
+
+
   return (
     <article className="single-tour">
       <img src={image} alt={name} />
@@ -21,6 +26,7 @@ const Tour = ({ id, image, info, name, price, removeTour }) => {
         </button>
       </footer>
     </article>
+    
   );
 };
 
