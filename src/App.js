@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Loading from './Loading'
 import Tours from './Tours'
 import axios from 'axios'
-import AppContext from './AppContext'
+import {AppProvider} from './AppContext'
+
 const url = 'https://course-api.com/react-tours-project'
 
 function App() {
@@ -32,13 +33,16 @@ function App() {
   }, [])
   if (loading) {
     return (
+      <AppProvider>
       <main>
         <Loading />
       </main>
+      </AppProvider>
     )
   }
   if (tours.length === 0) {
     return (
+      <AppProvider>
       <main>
         <div className='title'>
           <h2>no tours left</h2>
@@ -47,14 +51,15 @@ function App() {
           </button>
         </div>
       </main>
+      </AppProvider>
     )
   }
   return (
-    
+    <AppProvider>
     <main>
       <Tours tours={tours} removeTour={removeTour} />
     </main>
-    
+    </AppProvider>
   )
 }
 

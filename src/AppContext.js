@@ -1,20 +1,18 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext } from 'react';
 const AppContext = createContext();
 
-const AppProvider = ({ children }) => {
-    const [readMore, setReadMore] = useState(false);
+export function AppProvider({ children }) {
+  
+  const [readMore, setReadMore] = useState(false);
 
   return (
     <AppContext.Provider
-      value={{readMore, setReadMore}}
-    >
+      value={{readMore, setReadMore}}>
       {children}
     </AppContext.Provider>
   );
 };
 // make sure use
-export const useGlobalContext = () => {
-  return useContext(AppContext);
-};
 
-export { AppContext, AppProvider };
+
+export default AppContext;
